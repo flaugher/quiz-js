@@ -1,5 +1,3 @@
-// Welcome
-alert("Welcome to our quiz!");
 
 var quiz = [
     ["Who holds the career touchdown passing record?", "Peyton Manning"],
@@ -9,19 +7,38 @@ var quiz = [
 
 var score = 0;  // Initialize score
 
-for (var i=0, max=quiz.length; i< max; i++) {
+// Because of hoisting, we can call the 'play' function before defining it
+play(quiz);
 
-    var answer = prompt(quiz[i][0]);
+function play(quiz) {
+    welcome();
+    // Main game loop
+    for (var i = 0, question, answer, max = quiz.length; i < max; i++) {
+        question = quiz[i][0];
+        answer = ask(question);
+        check(answer);
+    }
+    gameOver();
 
-    if (answer === quiz[i][1]) {
-        alert("You're right!");
-        score++;
-    } else {
-        alert("Sorry, that's incorrect");
+    // Nest these next auxilary functions so they can access play's variables
+    function welcome() {
+        alert("Welcome to our football quiz!");
     }
 
-}
+    function ask(question) {
+        return prompt(question);
+    }
 
-var message = "The quiz is over.  You scored ";
-message += score === 1 ? score + " point." : score + " points.";
-alert(message);
+    function check(answer) {
+        if (answer === quiz[i][1]) {
+            alert("Correct!");
+            score++;
+        } else {
+            alert("Sorry, that's not the right answer.");
+        }
+    }
+
+    function gameOver() {
+        alert("The game is over.  You scored " + score + " points.");
+    }
+}
