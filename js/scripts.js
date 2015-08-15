@@ -1,9 +1,15 @@
 
-var quiz = [
-    ["Who holds the career touchdown passing record?", "Peyton Manning"],
-    ["Who holds the career touchdown rushing record?", "Emmitt Smith"],
-    ["Who holds the career field goal record?", "Morten Andersen"]
-];
+var quiz = {
+    "name": "Football player quiz",
+    "description": "How many football players' teams can you name?",
+    "question_start": "What team did ",
+    "question_end": " play on?",
+    "questions": [
+        { "question": "Bart Starr", "answer": "Green Bay Packers" },
+        { "question": "Tom Brady", "answer": "New England Patriots"},
+        { "question": "Dick Butkus", "answer": "Chicago Bears"}
+    ]
+};
 
 var score = 0;  // Initialize score
 
@@ -13,8 +19,8 @@ play(quiz);
 function play(quiz) {
     welcome();
     // Main game loop
-    for (var i = 0, question, answer, max = quiz.length; i < max; i++) {
-        question = quiz[i][0];
+    for (var i = 0, question, answer, max = quiz.questions.length; i < max; i++) {
+        question = quiz.questions[i].question;
         answer = ask(question);
         check(answer);
     }
@@ -25,12 +31,12 @@ function play(quiz) {
         alert("Welcome to our football quiz!");
     }
 
-    function ask(question) {
-        return prompt(question);
+    function ask(questionquestion_) {
+        return prompt(quiz.question_start + question + quiz.question_end)
     }
 
     function check(answer) {
-        if (answer === quiz[i][1]) {
+        if (answer === quiz.questions[i].answer) {
             alert("Correct!");
             score++;
         } else {
